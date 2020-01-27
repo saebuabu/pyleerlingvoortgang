@@ -1,12 +1,24 @@
 from voortgangsdoc import SourceXls
 from rapportagedoc import TargetXls
 import constant
+from tkinter import *
+import tkinter
+
+
+def vraagpad():
+    root = Tk()
+    root.directory = tkinter.filedialog.askdirectory(title="Selecteer map voor de leerling documenten")
+    return root.directory
+
 
 mysrc = SourceXls()
 # De lijst van leerlingen wordt uit de tab gehaald met de naam van de klas
 mysrc.initleerlingen()
-
 mysrc.actleerlingindex = -1
+
+
+padleerlingdocs = vraagpad()
+
 # Alle leerlingen aflopen
 while mysrc.setnextleerling():
     firstvak = True
@@ -24,7 +36,7 @@ while mysrc.setnextleerling():
         # leerlingvoortgangsdocument wordt geopend of aangemaakt
         if firstvak:
             voortgangLeerling = TargetXls(mysrc.klas, mysrc.namen[mysrc.actleerlingindex],
-                                          mysrc.leerlingen[mysrc.actleerlingindex])
+                                          mysrc.leerlingen[mysrc.actleerlingindex], padleerlingdocs)
 
         else:
             print(".")
@@ -51,3 +63,4 @@ while mysrc.setnextleerling():
     voortgangLeerling.save()
     voortgangLeerling.sluitdoc()
     del voortgangLeerling
+
