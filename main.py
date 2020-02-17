@@ -45,14 +45,14 @@ while mysrc.setnextleerling():
         voortgangLeerling.maaktab(mysrc.sheet.title)
 
         # kopieer de header range naar de leerlingvoortgangs document
-        hrange = mysrc.kopieerrange(1, 1, constant.AANTALCOLSVOORTGANG, 3)
+        hrange = mysrc.kopieerrange(constant.STARTCOLHEADER, constant.STARTROWHEADER, constant.AANTALCOLSVOORTGANG, constant.ENDROWHEADER)
         leerlingrij = mysrc.zoekleerlingrij()
-        leerlingrange = mysrc.kopieerrange(3, leerlingrij, constant.AANTALCOLSVOORTGANG, leerlingrij)
-        voortgangLeerling.pasteRange(1, 1, constant.AANTALCOLSVOORTGANG, 3, hrange, mysrc.sheet.title, True)
+        leerlingrange = mysrc.kopieerrange(constant.STARTCOLRESULTS, leerlingrij, constant.AANTALCOLSVOORTGANG, leerlingrij)
+        voortgangLeerling.pasteRange(constant.STARTCOLHEADER, constant.STARTROWHEADER, constant.AANTALCOLSVOORTGANG, constant.ENDROWHEADER, hrange, mysrc.sheet.title, True)
 
         # plak de resultatenrij in de vrije rij met een volgend weeknummer
         vrijerij = voortgangLeerling.zoekvrijerij(mysrc.sheet.title)
-        voortgangLeerling.pasteRange(3, vrijerij, constant.AANTALCOLSVOORTGANG, vrijerij, leerlingrange,
+        voortgangLeerling.pasteRange(constant.STARTCOLRESULTS, vrijerij, constant.AANTALCOLSVOORTGANG, vrijerij, leerlingrange,
                                      mysrc.sheet.title, False)
 
         hrange = []
